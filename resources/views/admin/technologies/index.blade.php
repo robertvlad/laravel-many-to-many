@@ -27,10 +27,10 @@
                         <td>{{ $technology->name }}</td>
                         <td>{{ $technology->slug }}</td>
                         <td>
-                            {{-- <a href="{{ route('admin.types.show', $type->slug) }}" title="Visualizza Type" class="btn btn-square btn-primary btn-sm">
+                            <a href="{{ route('admin.technologies.show', $technology->slug) }}" title="Visualizza Technology" class="btn btn-square btn-primary btn-sm">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="{{ route('admin.types.edit', $type->slug) }}" title="Modifica Type" class="btn btn-square btn-warning btn-sm">
+                            {{-- <a href="{{ route('admin.types.edit', $type->slug) }}" title="Modifica Type" class="btn btn-square btn-warning btn-sm">
                                 <i class="fas fa-edit"></i>
                             </a> --}}
                         </td>

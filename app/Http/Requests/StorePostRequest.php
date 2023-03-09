@@ -27,8 +27,7 @@ class StorePostRequest extends FormRequest
             'title' => ['required', 'unique:posts', 'max:150'],
             'content' => ['nullable'],
             'type_id' => ['nullable', 'exists:types,id'],
-            'type_id.exists' => 'Seleziona una tipologia valida'
-
+            'technologies' => ['exists:technologies,id']
         ];
     }
 
@@ -42,7 +41,9 @@ class StorePostRequest extends FormRequest
         return [
             'title.required' => 'Il titolo è richesto',
             'title.unique' => 'E\' gia presente un post con questo titolo',
-            'title.max' => 'Il titolo deve essere inferiore ai :max caratteri'
+            'title.max' => 'Il titolo deve essere inferiore ai :max caratteri',
+            'type_id.exists' => 'Seleziona una tipologia valida',
+            'technologies.exists' => 'Seleziona una technology valida'
         ];
     }
 }

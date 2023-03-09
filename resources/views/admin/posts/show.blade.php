@@ -30,6 +30,12 @@
             <p>Creato il: {{ $post['created_at']}}</p>
             <p>Ultima modifica effettuata il: {{ $post['updated_at']}}</p>
             <p>Tipo: {{ $post->type ? $post->type->name : 'Senza tipologia' }}</p>
+            <p>Technologies:</p>
+            @forelse ($post->technoligies as $technology)
+                {{ $technology->name }}                
+            @empty
+                Nessuna technology associata
+            @endforelse ($post->technology as )                
         </div>
     </div>
 </div>

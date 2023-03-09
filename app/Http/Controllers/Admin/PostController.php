@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Technology;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Type;
 
@@ -31,8 +32,9 @@ class PostController extends Controller
     public function create()
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.posts.create', compact('types'));
+        return view('admin.posts.create', compact('types', 'technologies'));
     }
 
     /**
@@ -50,6 +52,10 @@ class PostController extends Controller
         $form_data['slug'] = $slug;
 
         $newPost = Post::create($form_data);
+
+        if($request->has('technologies')) {
+            $newPost->technoligies()->attach($request->technologies);
+        }
 
         return redirect()->route('admin.posts.show', ['post' => $newPost['slug']])->with('message', 'Post creato correttamente');
     }
@@ -75,8 +81,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.posts.edit', compact('post', 'types'));
+        return view('admin.posts.edit', compact('post', 'types', 'technologies'));
     }
 
     /**
@@ -96,6 +103,10 @@ class PostController extends Controller
 
         $post->update($form_data);
 
+        if($request->has('technologies')) {
+            $post->technoligies()->sync($request->technologies);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $post['slug']])->with('message', 'Post modificato correttamente');
     }
 
@@ -107,6 +118,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // $post->technoligies()->sync([]);
+
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('message', 'Post cancellato correttamente');
