@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\DashboardController as DashboardController;
 use App\Http\Controllers\Admin\PostController as PostController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TechnologyController;
+use App\Http\Controllers\Admin\TechnologyController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
