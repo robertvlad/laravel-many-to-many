@@ -13,7 +13,7 @@ class UpdateTechnologyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class UpdateTechnologyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'unique:technologies']
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     * 
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'La technology è richesto',
+            'name.unique' => 'E\' gia presente una technology con questo titolo',
         ];
     }
 }

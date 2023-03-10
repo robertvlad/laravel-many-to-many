@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 use App\Models\Type;
+use App\Models\Technology;
 
 class Post extends Model
 {

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+use App\Models\Post;
+
 class Technology extends Model
 {
     use HasFactory;
@@ -13,6 +15,7 @@ class Technology extends Model
     protected $fillable = ['name', 'slug'];
 
     public static function generateSlug($name) {
+        
         return Str::slug($name, '-');
     }
 

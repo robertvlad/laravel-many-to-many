@@ -51,7 +51,7 @@ class TypeController extends Controller
         
         $newType = Type::create($form_data);
 
-        return redirect()->route('admin.types.show', $newType->slug)->with('message', 'Type creato correttamente');;
+        return redirect()->route('admin.types.show', $newType->slug)->with('message', 'Type creato correttamente');
     }
 
     /**

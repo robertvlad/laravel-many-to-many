@@ -6,6 +6,8 @@ use App\Models\Technology;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class TechnologyController extends Controller
 {
@@ -28,7 +30,9 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        
+        $technologies = Technology::all();
+
+        return view('admin.technologies.create', compact('technologies'));
     }
 
     /**
@@ -39,7 +43,15 @@ class TechnologyController extends Controller
      */
     public function store(StoreTechnologyRequest $request)
     {
-        //
+        $form_data = $request->validated();
+
+        $slug = Technology::generateSlug($request->name);
+
+        $form_data['slug'] = $slug;
+
+        $newTechnology = Technology::create($form_data);
+        
+        return redirect()->route('admin.technologies.show', $newTechnology->slug)->with('message', 'Nuova Technology creata');
     }
 
     /**
@@ -61,7 +73,7 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        //
+        return view('admin.technologies.edit', compact('technology'));
     }
 
     /**
@@ -73,7 +85,15 @@ class TechnologyController extends Controller
      */
     public function update(UpdateTechnologyRequest $request, Technology $technology)
     {
-        //
+        $form_data = $request->validated();
+
+        $slug = Technology::generateSlug($request->name);
+
+        $form_data['slug'] = $slug;
+
+        $technology->update($form_data);
+
+        return redirect()->route('admin.technologies.show', $technology->slug)->with('message', 'Technology modificato correttamente');
     }
 
     /**
@@ -84,6 +104,8 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+        
+        return redirect()->route('admin.technologies.index')->with('message', 'La technology è stata cancellata con successo');
     }
 }
